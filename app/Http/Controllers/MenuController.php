@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MenuItem;
 use Illuminate\Routing\Controller as BaseController;
+use Psy\Util\Json;
 
 class MenuController extends BaseController
 {
@@ -94,7 +95,14 @@ class MenuController extends BaseController
     ]
      */
 
-    public function getMenuItems() {
-        throw new \Exception('implement in coding task 3');
+    /**
+     * @return string
+     */
+    public function getMenuItems()
+    {
+        return MenuItem::with('subMenu')
+            ->where('parent_id',null)
+            ->get()
+            ->toJson();
     }
 }
